@@ -1,50 +1,10 @@
 import express from 'express'; // imported express from express 
-import jwt from 'jsonwebtoken'; // imported jwt from jsonwebtoken
-import bcrypt from 'bcrypt'; //imported bcrypt from bcyrpt
-import bodyParser from 'body-parser'; //bodyparser from body-parser
-
-const app = express(); // initialize  express 
-app.use(bodyParser.json()); //using the initialize parsing the response into a body parser.json
+const app = express();
 
 const port = 3000
 
-const JWT_SECRET = "2000021020010011"; //get our jwt secret key 
-const userInfo = [ ]; // storing userinfo since this is a test in real word we will use db
-
-app.post('/register', async (req, res) => { //http request take a path req and res then callback function below is a destructure of username and password into our body 
-   const { username, password } = req.body;
-
-
-const salt = await bcrypt.genSalt(10);
-
-const hashedPassword = bcrypt.hash(password,  salt);
-
-const newUser = {
-   username: username,
-   passwordhash: hashedpassword
-}
-usersDatabase.push(newUser);
-res.status(201).json({ message: "User register seccufully" })
-})
-
-app.post('/login', async (req, res) => {
-   const { username, password } = req.body;
-
-  const user = usersDatabase.find(u => u.username === username);
-
-  if(!user) {
-   return res.status(401).json({ message: "User not found!" });
-  }
-
-  const isMatch = await bcrypt.compare(password, user.passwordhash);
-  if(!isMatch){
-   return res.status(401).json({ message: "Wrong password" });
-  }
-
-  const payload = { username: user.username };
-  const token  = jwt.sign(payload, JWT_SECRET, {expiresIn: "1h"});
-
-  res.status(200).json({ message: "Logged in!", token: token });
+app.get('/', (req, res) => {
+   res.send('Server has started')
 })
 
 app.listen(port, () => {
