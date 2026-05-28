@@ -1,0 +1,1 @@
+In this progress README, users will learn how authentication works. Bcrypt hashes and salts text into a string of random characters, making passwords difficult to decode or crack. Password hashing is a crucial concept for beginners when building authentication systems.
