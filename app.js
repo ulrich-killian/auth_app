@@ -15,3 +15,15 @@ const getText = (path) => {
 getText("./folder/first.txt")
   .then((result) => console.log(result))
   .catch((err) => console.log(err));
+
+  const start = async () => {
+   try {
+      const first = await getText('./folder/first.txt')
+      if(first){
+          console.log(first);  
+      }
+   } catch (error) {
+      console.log(error)
+   }
+  }
+  start()
