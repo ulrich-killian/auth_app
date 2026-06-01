@@ -1,29 +1,10 @@
-const { readFile } = require('fs')
+const http = require('http')
 
-const getText = (path) => {
-  return new Promise((resolve, reject) => {
-    readFile(path, "utf-8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-};
-
-getText("./folder/first.txt")
-  .then((result) => console.log(result))
-  .catch((err) => console.log(err));
-
-  const start = async () => {
-   try {
-      const first = await getText('./folder/first.txt')
-      if(first){
-          console.log(first);  
-      }
-   } catch (error) {
-      console.log(error)
-   }
-  }
-  start()
+const server = http.createServer((req, res) => {
+   res.writeHead(200, {'content-type' : 'text/html'})
+   res.write('<h1>Home page</h1>')
+   res.end()
+})
+server.listen(3000, () => {
+   console.log("server is running on http://localhost:3000");
+})
