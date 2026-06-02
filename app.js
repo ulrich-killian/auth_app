@@ -1,24 +1,13 @@
-const http = require("http");
+import express from 'express'
+import { PORT }  from './src/config/env.js'
+const app = express()
 
-const { readFileSync } = require("fs");
+app.get('/', (req, res) => {
+  res.send("Hello world")
+})
 
-const homePage = readFileSync("./index.html");
+app.listen(PORT, () => {
+  console.log(`server is running live on http://localhost:${PORT}`);
+})
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write(homePage);
-    res.end();
-  } else if (req.url === "/about") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>About page</h1>");
-    res.end();
-  } else {
-    res.writeHead(404, { "content-type": "text/html" });
-    res.write("<h1>page not found</h1>");
-    res.end();
-  }
-});
-server.listen(3000, () => {
-  console.log("server is running on http://localhost:3000");
-});
+export default app;
